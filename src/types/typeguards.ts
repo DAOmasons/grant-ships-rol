@@ -16,7 +16,6 @@ export const isEvent = (event: any): event is EventData => {
     isString(event.id) && isString(event.createdAt) && isString(event.createdBy)
   );
 };
-
 export const isClaim = (event: any): event is Claim => {
   return (
     event.type === 'claim' &&
@@ -26,7 +25,7 @@ export const isClaim = (event: any): event is Claim => {
     Array.isArray(event.sessionsTime) &&
     Array.isArray(event.sessionsValue) &&
     event.sessionsTime.every(isString) &&
-    event.sessionsValue.every(isString) &&
+    event.sessionsValue.every(isNumberish) &&
     isEvent(event)
   );
 };
@@ -90,7 +89,5 @@ export const isUpdateInterval = (event: any): event is UpdateInterval => {
   );
 };
 export const isSummonShaman = (event: any): event is SummonShaman => {
-  return (
-    event.type === 'summon' && isString(event.projectMetadata) && isEvent(event)
-  );
+  return event.type === 'summon' && isEvent(event);
 };

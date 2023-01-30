@@ -5,10 +5,13 @@ import { useTimeline } from '../hooks/useTimeline';
 
 export const Timeline = () => {
   const { timeline } = useTimeline({ shamanAddress: TARGET_DAO.ROS_V2_SHAMAN });
-  console.log('timeline', timeline);
+
   return (
     <SingleColumnLayout>
       {timeline?.map((event, index) => {
+        if (event.type === 'claim') {
+          return <ParMd key={event.id}>{event.type}</ParMd>;
+        }
         return <ParMd key={event.id}>{event.type}</ParMd>;
       })}
     </SingleColumnLayout>
