@@ -1,6 +1,40 @@
-import React from 'react';
 import { GraphQLClient, gql } from 'graphql-request';
+import { useQuery } from 'react-query';
 import { SHAMAN_GRAPH_ENDPOINT } from '../constants';
+import { Claim, SummonShaman } from '../types/timeline';
+import {
+  isClaim,
+  isClaimMetadata,
+  isSummonShaman,
+  isUpdateLock,
+} from '../types/typeguards';
+import { handleClaimMetadata, handleProjectMetadata } from '../utils/metadata';
+
+const parseClaim = (claim: any): Claim => {
+  return { ...claim, metadata: handleClaimMetadata(claim.metadata as string) };
+};
+const parseSummon = (summon: any): SummonShaman => {
+  return {
+    ...summon,
+    metadata: handleProjectMetadata(summon.metadata as string),
+  };
+};
+
+const parseEvents = (events: any) => {
+  if (!Array.isArray(events))
+    throw new Error('Did not receive an array of events');
+  return events.map((event: any) => {
+    if (isClaim(event)) {
+      return parseClaim(event);
+    }
+    if (isUpdateLock(event)) {
+      return event;
+    }
+    if (isSummonShaman(event)) {
+      return parseSummon(event);
+    }
+  });
+};
 
 const fetchDAOTimeline = async (shamanAddress: string) => {
   const graphQLClient = new GraphQLClient(SHAMAN_GRAPH_ENDPOINT);
@@ -33,19 +67,22 @@ const fetchDAOTimeline = async (shamanAddress: string) => {
       }
     }
   `;
-  const data = await graphQLClient.request(query, {
-    shamanAddress: shamanAddress,
-  });
-  return data;
+
+  try {
+    const data = await graphQLClient.request(query, {
+      shamanAddress,
+    });
+
+    return parseEvents(data?.timelineEvents);
+  } catch (error) {
+    throw new Error(error as any);
+  }
 };
 
-export const testRequest = async () => {
-  const result = await fetchDAOTimeline(
-    '0xf1972b7801c4a479fb79598534dc055406db75a1'
+export const useTimeline = ({ shamanAddress }: { shamanAddress: string }) => {
+  const { data, error, ...rest } = useQuery(`timeline-${shamanAddress}`, () =>
+    fetchDAOTimeline(shamanAddress)
   );
-  console.log(result);
-};
 
-export const useTimeline = () => {
-  return null;
+  return { timeline: data, error: error as Error, ...rest };
 };
