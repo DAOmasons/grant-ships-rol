@@ -1,5 +1,6 @@
 import { ParMd, SingleColumnLayout } from '@daohaus/ui';
 import React from 'react';
+import { BaseEventCard } from '../components/BaseEventCard';
 import { TARGET_DAO } from '../constants';
 import { useTimeline } from '../hooks/useTimeline';
 
@@ -9,10 +10,14 @@ export const Timeline = () => {
   return (
     <SingleColumnLayout>
       {timeline?.map((event) => {
-        if (event.type === 'claim') {
-          return <ParMd key={event.id}>{event.type}</ParMd>;
-        }
-        return <ParMd key={event.id}>{event.type}</ParMd>;
+        return (
+          <BaseEventCard
+            key={event.id}
+            createdAt={event.createdBy}
+            createdBy={event.createdBy}
+            descriptionLine={"You've claimed your ROS"}
+          />
+        );
       })}
     </SingleColumnLayout>
   );
