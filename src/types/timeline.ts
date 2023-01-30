@@ -3,7 +3,6 @@ export type EventData = {
   createdAt: string;
   createdBy: string;
 };
-
 export type ClaimMetadata = {
   claimDetails: string[];
   morale: string;

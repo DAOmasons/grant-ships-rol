@@ -8,7 +8,7 @@ export const Timeline = () => {
 
   return (
     <SingleColumnLayout>
-      {timeline?.map((event, index) => {
+      {timeline?.map((event) => {
         if (event.type === 'claim') {
           return <ParMd key={event.id}>{event.type}</ParMd>;
         }
