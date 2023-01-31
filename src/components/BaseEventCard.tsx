@@ -62,6 +62,8 @@ export const BaseEventCard = ({
     setIsOpen(!isOpen);
   };
 
+  console.log('createdAt', createdAt);
+
   return (
     <BaseCard>
       <div className="top-line">

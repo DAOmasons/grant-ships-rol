@@ -26,6 +26,8 @@ export const Timeline = () => {
     <SingleColumnLayout>
       <TimelineLayout>
         {timeline?.map((event) => {
+          console.log('event.type', event.type);
+          console.log('event.createdAt', event.createdAt);
           if (event.type === 'claim') {
             return <ClaimCard key={event.id} {...event} />;
           }
