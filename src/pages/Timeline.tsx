@@ -1,4 +1,4 @@
-import { Bold, ParLg, ParMd, SingleColumnLayout } from '@daohaus/ui';
+import { Bold, Link, ParLg, ParMd, SingleColumnLayout } from '@daohaus/ui';
 
 import { BaseEventCard } from '../components/BaseEventCard';
 import { TARGET_DAO } from '../constants';
@@ -95,9 +95,16 @@ const UpdateLockCard = (updateLock: UpdateLock) => {
       expandContent={
         <>
           <ParMd className="bold mb-sm">This Contract is Locked</ParMd>
-          <ParMd className="tint-secondary">
+          <ParMd className="tint-secondary mb-md">
             The project team lead has locked this contract from accepting
-            Project DAO member claims.
+            Project DAO member claims. The team lead can unlock the contract on
+            the <Link href="/settings">settings</Link> panel
+          </ParMd>
+          <ParMd className="bold mb-sm">Disagree with this decision?</ParMd>
+          <ParMd className="tint-secondary mb-md">
+            Try talking it over as a group first. If that doesn't work, you can
+            make a proposal to replace the team lead{' '}
+            <Link href="/settings">here</Link>
           </ParMd>
         </>
       }
@@ -115,7 +122,6 @@ const SummonCard = (summon: SummonShaman) => {
       Icon={HiOutlineFire}
       createdAt={createdAt}
       createdBy={createdBy}
-      shouldExpand={false}
       descriptionLine={
         <ParMd>
           Project DAO Summoned by{' '}
