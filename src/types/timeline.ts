@@ -34,7 +34,7 @@ export type Claim = EventData & {
   totalSecondsWorked: string;
   totalAmountClaimed: string;
   sessionsTime: string[];
-  sessionsValue: string[];
+  sessionsValue: number[];
 };
 
 export type SummonShaman = EventData & {
