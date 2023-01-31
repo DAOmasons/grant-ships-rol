@@ -1,5 +1,4 @@
-import { useDHConnect } from '@daohaus/connect';
-import { Bold, Button, Card, ParLg, ParMd, ParSm } from '@daohaus/ui';
+import { Button, Card, ParLg, ParMd, ParSm } from '@daohaus/ui';
 import { truncateAddress } from '@daohaus/utils';
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
@@ -37,6 +36,7 @@ export const BaseEventCard = ({
   createdAt,
   Icon,
   descriptionLine,
+  title,
   shouldExpand = true,
   expandLabels = {
     expand: 'Show More',
@@ -44,6 +44,7 @@ export const BaseEventCard = ({
   },
   expandContent,
 }: {
+  title: string;
   createdBy: string;
   createdAt: string;
   descriptionLine: ReactNode;
@@ -56,21 +57,16 @@ export const BaseEventCard = ({
   expandContent?: ReactNode;
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const { profile } = useMemberProfile({ address: createdBy });
 
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
 
-  console.log('createdAt', createdAt);
-
   return (
     <BaseCard>
       <div className="top-line">
         {Icon && <Icon size="4rem" className="card-icon" />}
-        <ParLg>
-          {profile?.name || profile?.ens || truncateAddress(createdBy)}
-        </ParLg>
+        <ParLg>{title}</ParLg>
         <ParSm className="date">
           {format(new Date(Number(createdAt) * 1000), 'MM/dd/yyyy')}
         </ParSm>

@@ -43,13 +43,16 @@ const UtilityCSS = styled.div`
     text-transform: uppercase;
   }
   .tint-secondary {
-    color: ${(props) => props.theme.secondary.step9};
+    color: ${(props) => props.theme.secondary.step11};
   }
   .warning {
-    color: ${(props) => props.theme.warning.step11};
+    color: ${(props) => props.theme.warning.step9};
   }
   .capitalize {
     text-transform: capitalize;
+  }
+  .break-word {
+    word-break: break-word;
   }
 `;
 

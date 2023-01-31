@@ -13,16 +13,20 @@ import {
   formatValueTo,
   fromWei,
   isString,
+  truncateAddress,
 } from '@daohaus/utils';
 import { VALUE_LABELS } from '../utils/rubric';
 import styled from 'styled-components';
+import { useMemberProfile } from '../hooks/useMemberProfile';
 
 export const ClaimCard = (claim: Claim) => {
   const { createdAt, createdBy, totalAmountClaimed, totalSecondsWorked } =
     claim;
+  const { profile } = useMemberProfile({ address: createdBy });
 
   return (
     <BaseEventCard
+      title={profile?.name || profile?.ens || truncateAddress(createdBy)}
       Icon={HiOutlineClipboardCopy}
       createdAt={createdAt}
       createdBy={createdBy}

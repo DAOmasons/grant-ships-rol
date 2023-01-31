@@ -1,4 +1,4 @@
-import { Bold, ParMd, SingleColumnLayout } from '@daohaus/ui';
+import { Bold, ParLg, ParMd, SingleColumnLayout } from '@daohaus/ui';
 
 import { BaseEventCard } from '../components/BaseEventCard';
 import { TARGET_DAO } from '../constants';
@@ -11,8 +11,10 @@ import {
   HiOutlineLockClosed,
   HiOutlineFire,
 } from 'react-icons/hi';
+import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import { useMemberProfile } from '../hooks/useMemberProfile';
 import { truncateAddress } from '@daohaus/utils';
+import ReactJson from 'react-json-view';
 
 const TimelineLayout = styled.div`
   width: 100%;
@@ -40,10 +42,31 @@ export const Timeline = () => {
 
           return (
             <BaseEventCard
+              title="Unknown Event"
               key={event.id}
+              Icon={AiOutlineQuestionCircle}
               createdAt={event.createdAt}
               createdBy={event.createdBy}
-              descriptionLine={event.type}
+              descriptionLine={
+                <ParMd>
+                  Event type <Bold>{event.type}</Bold> not found in factory
+                </ParMd>
+              }
+              expandLabels={{
+                expand: 'View Event Data',
+                collapse: 'Hide Data',
+              }}
+              expandContent={
+                <>
+                  <ParMd className="mb-md bold">Event Data</ParMd>
+                  <ReactJson
+                    src={event}
+                    theme="ashes"
+                    displayDataTypes={false}
+                    style={{ fontSize: '1.4rem', background: 'none' }}
+                  />
+                </>
+              }
             />
           );
         })}
@@ -59,15 +82,24 @@ const UpdateLockCard = (updateLock: UpdateLock) => {
 
   return (
     <BaseEventCard
+      title={isLocked ? 'Claims Locked' : 'Claims Unlocked'}
       Icon={LockIcon}
       createdAt={createdAt}
       createdBy={createdBy}
-      shouldExpand={false}
       descriptionLine={
         <ParMd>
           Team Lead <Bold>TODO</Bold> has{' '}
           <Bold>{isLocked ? 'locked' : 'unlocked'}</Bold> claims
         </ParMd>
+      }
+      expandContent={
+        <>
+          <ParMd className="bold mb-sm">This Contract is Locked</ParMd>
+          <ParMd className="tint-secondary">
+            The project team lead has locked this contract from accepting
+            Project DAO member claims.
+          </ParMd>
+        </>
       }
     />
   );
@@ -79,6 +111,7 @@ const SummonCard = (summon: SummonShaman) => {
 
   return (
     <BaseEventCard
+      title="Project DAO Summoned"
       Icon={HiOutlineFire}
       createdAt={createdAt}
       createdBy={createdBy}
