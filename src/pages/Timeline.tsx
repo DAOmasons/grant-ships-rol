@@ -37,6 +37,8 @@ export const Timeline = () => {
     shamanAddress: TARGET_DAO.ROS_V2_SHAMAN,
   });
   if (isLoadingTimeline || isLoadingShaman) return <Spinner size="12rem" />;
+  if (!timeline) return <ParLg>Timeline not found</ParLg>;
+  if (!shaman) return <ParLg>Shaman not found</ParLg>;
 
   return (
     <SingleColumnLayout>
@@ -46,7 +48,13 @@ export const Timeline = () => {
             return <ClaimCard key={event.id} {...event} />;
           }
           if (event.type === 'updateLock') {
-            return <UpdateLockCard key={event.id} {...event} />;
+            return (
+              <UpdateLockCard
+                key={event.id}
+                {...event}
+                teamLead={shaman?.teamLead}
+              />
+            );
           }
           if (event.type === 'summon') {
             return <SummonCard key={event.id} {...event} />;
@@ -87,9 +95,9 @@ export const Timeline = () => {
   );
 };
 
-const UpdateLockCard = (updateLock: UpdateLock) => {
-  const { createdAt, createdBy, isLocked } = updateLock;
-
+const UpdateLockCard = (props: UpdateLock & { teamLead: string }) => {
+  const { createdAt, createdBy, isLocked, teamLead } = props;
+  const { displayName } = useMemberProfile({ address: teamLead });
   const LockIcon = isLocked ? HiOutlineLockClosed : HiOutlineLockOpen;
 
   return (
@@ -100,7 +108,7 @@ const UpdateLockCard = (updateLock: UpdateLock) => {
       createdBy={createdBy}
       descriptionLine={
         <ParMd>
-          Team Lead <Bold>TODO</Bold> has{' '}
+          Team Lead <Bold>{displayName}</Bold> has{' '}
           <Bold>{isLocked ? 'locked' : 'unlocked'}</Bold> claims
         </ParMd>
       }

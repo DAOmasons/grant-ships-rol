@@ -1,3 +1,4 @@
+import { truncateAddress } from '@daohaus/utils';
 import { useQuery } from 'react-query';
 import { fetchProfile } from '../utils/cacheProfile';
 
@@ -8,5 +9,10 @@ export const useMemberProfile = ({ address }: { address: string }) => {
     { enabled: !!address }
   );
 
-  return { profile: data, error: error as Error, ...rest };
+  return {
+    profile: data,
+    displayName: data?.name || data?.ens || truncateAddress(address),
+    error: error as Error,
+    ...rest,
+  };
 };
