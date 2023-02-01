@@ -1,4 +1,11 @@
-import { Bold, Link, ParLg, ParMd, SingleColumnLayout } from '@daohaus/ui';
+import {
+  Bold,
+  Link,
+  ParLg,
+  ParMd,
+  SingleColumnLayout,
+  Spinner,
+} from '@daohaus/ui';
 
 import { BaseEventCard } from '../components/BaseEventCard';
 import { TARGET_DAO } from '../constants';
@@ -15,6 +22,7 @@ import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import { useMemberProfile } from '../hooks/useMemberProfile';
 import { truncateAddress } from '@daohaus/utils';
 import ReactJson from 'react-json-view';
+import { useShamanData } from '../hooks/useShamanData';
 
 const TimelineLayout = styled.div`
   width: 100%;
@@ -22,14 +30,18 @@ const TimelineLayout = styled.div`
 `;
 
 export const Timeline = () => {
-  const { timeline } = useTimeline({ shamanAddress: TARGET_DAO.ROS_V2_SHAMAN });
+  const { timeline, isLoading: isLoadingTimeline } = useTimeline({
+    shamanAddress: TARGET_DAO.ROS_V2_SHAMAN,
+  });
+  const { shaman, isLoading: isLoadingShaman } = useShamanData({
+    shamanAddress: TARGET_DAO.ROS_V2_SHAMAN,
+  });
+  if (isLoadingTimeline || isLoadingShaman) return <Spinner size="12rem" />;
 
   return (
     <SingleColumnLayout>
       <TimelineLayout>
         {timeline?.map((event) => {
-          console.log('event.type', event.type);
-          console.log('event.createdAt', event.createdAt);
           if (event.type === 'claim') {
             return <ClaimCard key={event.id} {...event} />;
           }

@@ -1,4 +1,5 @@
-import { isNumberish, isString } from '@daohaus/utils';
+import { isBoolean, isNumberish, isString } from '@daohaus/utils';
+import { ShamanData } from './shaman';
 import {
   Claim,
   ClaimMetadata,
@@ -90,4 +91,20 @@ export const isUpdateInterval = (event: any): event is UpdateInterval => {
 };
 export const isSummonShaman = (event: any): event is SummonShaman => {
   return event.type === 'summon' && isEvent(event);
+};
+
+export const isShaman = (shaman: any): shaman is ShamanData => {
+  return (
+    shaman &&
+    isString(shaman.id) &&
+    isString(shaman.createdAt) &&
+    isString(shaman.address) &&
+    isString(shaman.interval) &&
+    isString(shaman.tokenPerSecond) &&
+    isString(shaman.projectMetadata) &&
+    isString(shaman.summoner) &&
+    isBoolean(shaman.isLocked) &&
+    Array.isArray(shaman.valueScalePercs) &&
+    shaman.valueScalePercs.every(isNumberish)
+  );
 };
