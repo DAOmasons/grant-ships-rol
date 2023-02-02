@@ -12,7 +12,7 @@ import { TARGET_DAO } from '../constants';
 import { useTimeline } from '../hooks/useTimeline';
 import styled from 'styled-components';
 import { ClaimCard } from '../components/ClaimCard';
-import { SummonShaman, UpdateLock } from '../types/timeline';
+import { ProjectMetadata, SummonShaman, UpdateLock } from '../types/timeline';
 import {
   HiOutlineLockOpen,
   HiOutlineLockClosed,
@@ -23,6 +23,7 @@ import { useMemberProfile } from '../hooks/useMemberProfile';
 import { truncateAddress } from '@daohaus/utils';
 import ReactJson from 'react-json-view';
 import { useShamanData } from '../hooks/useShamanData';
+import { MetadataWarning } from '../components/MetadataWarning';
 
 const TimelineLayout = styled.div`
   width: 100%;
@@ -57,7 +58,13 @@ export const Timeline = () => {
             );
           }
           if (event.type === 'summon') {
-            return <SummonCard key={event.id} {...event} />;
+            return (
+              <SummonCard
+                key={event.id}
+                {...event}
+                projectMetadata={shaman.projectMetadata}
+              />
+            );
           }
 
           return (
@@ -114,7 +121,9 @@ const UpdateLockCard = (props: UpdateLock & { teamLead: string }) => {
       }
       expandContent={
         <>
-          <ParMd className="bold mb-sm">This Contract is Locked</ParMd>
+          <ParMd className="bold mb-sm">
+            This Contract is {isLocked ? 'locked' : 'unlocked'}
+          </ParMd>
           <ParMd className="tint-secondary mb-md">
             The project team lead has locked this contract from accepting
             Project DAO member claims. The team lead can unlock the contract on
@@ -132,9 +141,29 @@ const UpdateLockCard = (props: UpdateLock & { teamLead: string }) => {
   );
 };
 
-const SummonCard = (summon: SummonShaman) => {
-  const { createdAt, createdBy } = summon;
-  const { profile } = useMemberProfile({ address: createdBy });
+const SummonCard = (
+  props: SummonShaman & { projectMetadata: 'Corrupt' | ProjectMetadata }
+) => {
+  const { createdAt, createdBy } = props;
+  const { displayName } = useMemberProfile({ address: createdBy });
+
+  const projectMetadata: ProjectMetadata = {
+    name: 'Project DAO',
+    description: 'A DAO for managing projects',
+    imageUrl: 'https://i.imgur.com/4ZQZQ9m.png',
+    mission: 'To manage projects',
+    rubric: ['100', '100', '100', '100', '100'],
+    links: [
+      {
+        name: 'Website',
+        url: 'https://projectdao.vercel.app/',
+      },
+      {
+        name: 'Website2',
+        url: 'https://projectdao.vercel.app/',
+      },
+    ],
+  };
 
   return (
     <BaseEventCard
@@ -144,12 +173,35 @@ const SummonCard = (summon: SummonShaman) => {
       createdBy={createdBy}
       descriptionLine={
         <ParMd>
-          Project DAO Summoned by{' '}
-          <Bold>
-            {profile?.name || profile?.ens || truncateAddress(createdBy)}
-          </Bold>{' '}
-          for <Bold>TODO</Bold>
+          {'Project DAO'} Summoned by <Bold>{displayName}</Bold>{' '}
         </ParMd>
+      }
+      expandContent={
+        <>
+          <ParLg className="mb-md">
+            <Bold>Project Metadata:</Bold>
+          </ParLg>
+          {projectMetadata && projectMetadata !== 'Corrupt' ? (
+            <>
+              {Object.entries(projectMetadata).map(([key, value]) => {
+                return (
+                  <>
+                    <ParMd key={key} className="mb-sm capitalize">
+                      <Bold>{key}:</Bold>
+                    </ParMd>
+                    <ParMd key={key} className="mb-md">
+                      {JSON.stringify(value)}
+                    </ParMd>
+                  </>
+                );
+              })}
+            </>
+          ) : (
+            <>
+              <MetadataWarning text="Corrupt Metadata: Claim description not available" />
+            </>
+          )}
+        </>
       }
     />
   );

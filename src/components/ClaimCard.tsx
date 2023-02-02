@@ -18,6 +18,7 @@ import {
 import { VALUE_LABELS } from '../utils/rubric';
 import styled from 'styled-components';
 import { useMemberProfile } from '../hooks/useMemberProfile';
+import { MetadataWarning } from './MetadataWarning';
 
 export const ClaimCard = (claim: Claim) => {
   const { createdAt, createdBy, totalAmountClaimed, totalSecondsWorked } =
@@ -65,14 +66,6 @@ const ClaimsContainer = styled.div`
       color: ${(props) => props.theme.secondary.step11};
     }
   }
-  .warning-text {
-    display: flex;
-    align-items: center;
-    svg {
-      margin-right: 1rem;
-      color: ${(props) => props.theme.warning.step11};
-    }
-  }
 `;
 
 const ClaimsData = ({ sessionsTime, sessionsValue, id, metadata }: Claim) => {
@@ -107,12 +100,7 @@ const ClaimsData = ({ sessionsTime, sessionsValue, id, metadata }: Claim) => {
       })}
       <ParLg className="bold mb-md">Claim Metadata</ParLg>
       {metadata === 'Corrupt' ? (
-        <div className="warning-text">
-          <HiOutlineExclamationCircle size="2rem" />
-          <ParMd className="warning">
-            Corrupt Metadata: Claim description not available
-          </ParMd>
-        </div>
+        <MetadataWarning text="Corrupt Metadata: Claim breakdown not available" />
       ) : (
         <>
           {Object.entries(metadata)
