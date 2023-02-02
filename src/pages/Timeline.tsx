@@ -124,11 +124,19 @@ const UpdateLockCard = (props: UpdateLock & { teamLead: string }) => {
           <ParMd className="bold mb-sm">
             This Contract is {isLocked ? 'locked' : 'unlocked'}
           </ParMd>
-          <ParMd className="tint-secondary mb-md">
-            The project team lead has locked this contract from accepting
-            Project DAO member claims. The team lead can unlock the contract on
-            the <Link href="/settings">settings</Link> panel
-          </ParMd>
+          {isLocked ? (
+            <ParMd className="tint-secondary mb-md">
+              The project team lead has locked this contract from accepting
+              Project DAO member claims. The team lead can unlock the contract
+              on the <Link href="/settings">settings</Link> panel
+            </ParMd>
+          ) : (
+            <ParMd className="tint-secondary mb-md">
+              The project team lead unlocked this contract. This project may now
+              accept member claims. The team lead can unlock the contract on the{' '}
+              <Link href="/settings">settings</Link> panel
+            </ParMd>
+          )}
           <ParMd className="bold mb-sm">Disagree with this decision?</ParMd>
           <ParMd className="tint-secondary mb-md">
             Try talking it over as a group first. If that doesn't work, you can
@@ -144,26 +152,8 @@ const UpdateLockCard = (props: UpdateLock & { teamLead: string }) => {
 const SummonCard = (
   props: SummonShaman & { projectMetadata: 'Corrupt' | ProjectMetadata }
 ) => {
-  const { createdAt, createdBy } = props;
+  const { createdAt, createdBy, projectMetadata } = props;
   const { displayName } = useMemberProfile({ address: createdBy });
-
-  const projectMetadata: ProjectMetadata = {
-    name: 'Project DAO',
-    description: 'A DAO for managing projects',
-    imageUrl: 'https://i.imgur.com/4ZQZQ9m.png',
-    mission: 'To manage projects',
-    rubric: ['100', '100', '100', '100', '100'],
-    links: [
-      {
-        name: 'Website',
-        url: 'https://projectdao.vercel.app/',
-      },
-      {
-        name: 'Website2',
-        url: 'https://projectdao.vercel.app/',
-      },
-    ],
-  };
 
   return (
     <BaseEventCard
