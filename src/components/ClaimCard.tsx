@@ -107,12 +107,10 @@ const ClaimsData = ({ sessionsTime, sessionsValue, id, metadata }: Claim) => {
             .filter(([_key, value]) => isString(value))
             .map(([key, value]) => {
               return (
-                <>
-                  <ParMd key={key} className="mb-sm capitalize">
-                    {key}:
-                  </ParMd>
+                <span key={key}>
+                  <ParMd className="mb-sm capitalize">{key}:</ParMd>
                   <ParMd className="tint-secondary mb-md">{value}</ParMd>
-                </>
+                </span>
               );
             })}
         </>

@@ -20,7 +20,7 @@ import {
 } from 'react-icons/hi';
 import { AiOutlineQuestionCircle } from 'react-icons/ai';
 import { useMemberProfile } from '../hooks/useMemberProfile';
-import { truncateAddress } from '@daohaus/utils';
+
 import ReactJson from 'react-json-view';
 import { useShamanData } from '../hooks/useShamanData';
 import { MetadataWarning } from '../components/MetadataWarning';

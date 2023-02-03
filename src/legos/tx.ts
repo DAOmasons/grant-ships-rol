@@ -1,4 +1,4 @@
-import { POSTER_TAGS } from '@daohaus/utils';
+import { POSTER_TAGS, TXLego } from '@daohaus/utils';
 import { buildMultiCallTX } from '@daohaus/tx-builder';
 import { CONTRACT } from './contract';
 
@@ -15,37 +15,23 @@ export enum ProposalTypeIds {
   WalletConnect = 'WALLETCONNECT',
 }
 
-export const TX = {
-  POST_SIGNAL: buildMultiCallTX({
-    id: 'POST_SIGNAL',
-    JSONDetails: {
-      type: 'JSONDetails',
-      jsonSchema: {
-        title: `.formValues.title`,
-        description: `.formValues.description`,
-        contentURI: `.formValues.link`,
-        contentURIType: { type: 'static', value: 'url' },
-        proposalType: { type: 'static', value: ProposalTypeIds.Signal },
-      },
-    },
-    actions: [
+export const TX: Record<string, TXLego> = {
+  CLAIM: {
+    id: 'CLAIM',
+    contract: CONTRACT.CHECKIN_V2,
+    method: 'claim',
+    args: [
+      '.formValues.sessionsTime',
+      '.formValues.sessionsValue',
       {
-        contract: CONTRACT.POSTER,
-        method: 'post',
-        args: [
-          {
-            type: 'JSONDetails',
-            jsonSchema: {
-              title: `.formValues.title`,
-              description: `.formValues.description`,
-              contentURI: `.formValues.link`,
-              contentURIType: { type: 'static', value: 'url' },
-              proposalType: { type: 'static', value: ProposalTypeIds.Signal },
-            },
-          },
-          { type: 'static', value: POSTER_TAGS.signalProposal },
-        ],
+        type: 'JSONDetails',
+        jsonSchema: {
+          claimDetails: '.formValues.sessionsDescription',
+          morale: '.formValues.morale',
+          obstacles: '.formValues.obstacles',
+          future: '.formValues.future',
+        },
       },
     ],
-  }),
+  },
 };

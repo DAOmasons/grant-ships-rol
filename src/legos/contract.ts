@@ -1,7 +1,7 @@
 import { LOCAL_ABI } from '@daohaus/abis';
 import { ContractLego } from '@daohaus/utils';
 import { CONTRACT_KEYCHAINS } from '@daohaus/keychain-utils';
-
+import CheckInV2 from '../abis/CheckInV2.json';
 export const CONTRACT: Record<string, ContractLego> = {
   POSTER: {
     type: 'static',
@@ -48,5 +48,11 @@ export const CONTRACT: Record<string, ContractLego> = {
     contractName: 'LOOT_ERC20',
     abi: LOCAL_ABI.LOOT,
     targetAddress: '.dao.sharesAddress',
+  },
+  CHECKIN_V2: {
+    type: 'static',
+    contractName: 'CHECKIN_V2',
+    abi: CheckInV2,
+    targetAddress: '.shamanAddress',
   },
 };

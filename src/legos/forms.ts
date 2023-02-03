@@ -1,21 +1,17 @@
 import { FormLego } from '@daohaus/form-builder';
+import { CustomForm } from './config';
 import { FIELD } from './fields';
 import { TX } from './tx';
 
-export const FORM: Record<string, FormLego> = {
-  SIGNAL: {
-    id: 'SIGNAL',
-    title: 'Signal Form',
-    subtitle: 'Signal Proposal',
-    description: 'Ratify on-chain using a DAO proposal.',
-    requiredFields: { title: true, description: true },
+export const FORM: Record<string, CustomForm> = {
+  CLAIM: {
+    id: 'CLAIM',
+    title: 'Claim DAO Tokens',
+    subtitle: 'Claim Proposal',
+    description: 'Claim DAO tokens for work completed',
+    requiredFields: { obstacles: true, future: true, morale: true },
     log: true,
-    tx: TX.POST_SIGNAL,
-    fields: [
-      FIELD.TITLE,
-      FIELD.DESCRIPTION,
-      FIELD.LINK,
-      // ...PROPOSAL_SETTINGS_FIELDS,
-    ],
+    tx: TX.CLAIM,
+    fields: [FIELD.MORALE, FIELD.OBSTACLES, FIELD.FUTURE, FIELD.CLAIM_BUILDER],
   },
 };

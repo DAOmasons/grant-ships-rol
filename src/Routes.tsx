@@ -1,14 +1,17 @@
-import { DHLayout } from '@daohaus/connect';
+import { DHLayout, useDHConnect } from '@daohaus/connect';
 import { Routes as Router, Route, useLocation } from 'react-router-dom';
 import { FormTest } from './pages/FormTest';
 import { Home } from './pages/Home';
 import { Leaderboard } from './pages/Leaderboard';
-import { Ritual } from './pages/Ritual';
+import { Claim } from './pages/Claim';
 import { Settings } from './pages/Settings';
 import { Timeline } from './pages/Timeline';
+import { TXBuilder } from '@daohaus/tx-builder';
+import { TARGET_DAO } from './constants';
 
 export const Routes = () => {
   const { pathname } = useLocation();
+  const { provider } = useDHConnect();
   return (
     <DHLayout
       pathname={pathname}
@@ -20,13 +23,23 @@ export const Routes = () => {
         { label: 'Settings', href: '/settings' },
       ]}
     >
-      <Router>
-        <Route path="/" element={<Home />} />
-        <Route path="/timeline" element={<Timeline />} />
-        <Route path="/claim" element={<Ritual />} />
-        <Route path="/leaderboard" element={<Leaderboard />} />
-        <Route path="/settings" element={<Settings />} />
-      </Router>
+      <TXBuilder
+        provider={provider}
+        chainId={TARGET_DAO.CHAIN_ID}
+        daoId={TARGET_DAO.ADDRESS}
+        // safeId={TARGET_DAO.SAFE_ADDRESS}
+        appState={{
+          shamanAddress: TARGET_DAO.ROS_V2_SHAMAN,
+        }}
+      >
+        <Router>
+          <Route path="/" element={<Home />} />
+          <Route path="/timeline" element={<Timeline />} />
+          <Route path="/claim" element={<Claim />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/settings" element={<Settings />} />
+        </Router>
+      </TXBuilder>
     </DHLayout>
   );
 };
