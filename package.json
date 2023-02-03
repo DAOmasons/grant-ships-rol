@@ -11,6 +11,7 @@
   "dependencies": {
     "@daohaus/connect": "^0.1.17",
     "@daohaus/form-builder": "^0.1.17",
+    "@daohaus/keychain-utils": "^0.1.17",
     "@daohaus/tx-builder": "^0.1.17",
     "@daohaus/ui": "^0.1.17",
     "@daohaus/utils": "^0.1.17",
