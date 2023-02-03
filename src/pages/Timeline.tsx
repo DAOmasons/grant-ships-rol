@@ -46,7 +46,13 @@ export const Timeline = () => {
       <TimelineLayout>
         {timeline?.map((event) => {
           if (event.type === 'claim') {
-            return <ClaimCard key={event.id} {...event} />;
+            return (
+              <ClaimCard
+                key={event.id}
+                {...event}
+                tokenPerSecond={shaman.tokenPerSecond}
+              />
+            );
           }
           if (event.type === 'updateLock') {
             return (
