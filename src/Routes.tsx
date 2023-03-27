@@ -19,8 +19,6 @@ export const Routes = () => {
         { label: 'Home', href: '/' },
         { label: 'Timeline', href: '/timeline' },
         { label: 'Claim', href: '/claim' },
-        { label: 'Leaderboard', href: '/leaderboard' },
-        { label: 'Settings', href: '/settings' },
       ]}
     >
       <TXBuilder

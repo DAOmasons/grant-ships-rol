@@ -13,21 +13,7 @@ export type ProjectLink = {
   name: string;
   url: string;
 };
-export type ProjectMetadata = {
-  name: string;
-  description: string;
-  imageUrl: string;
-  mission?: string;
-  rubric?: [string, string, string, string, string];
-  links?: ProjectLink[];
-  dueDate?: string;
-  parentDAOInfo?: {
-    name?: string;
-    address?: string;
-    description?: string;
-    imageUrl?: string;
-  };
-};
+
 export type Claim = EventData & {
   type: 'claim';
   metadata: 'Corrupt' | ClaimMetadata;
@@ -78,3 +64,20 @@ export type TimelineEvent =
   | Mutiny
   | UpdatePercs
   | UpdateTPS;
+
+export type ProjectMetadata = {
+  name: string;
+  description: string;
+  imageUrl: string;
+  mission?: string;
+  usdPerBaseShare?: number;
+  rubricDescription?: [string, string, string, string, string];
+  links?: ProjectLink[];
+  dueDate?: string;
+  parentDAOInfo?: {
+    name?: string;
+    address?: string;
+    description?: string;
+    imageUrl?: string;
+  };
+};
