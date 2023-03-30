@@ -20,10 +20,18 @@ import styled from 'styled-components';
 import { useMemberProfile } from '../hooks/useMemberProfile';
 import { MetadataWarning } from './MetadataWarning';
 
-export const ClaimCard = (props: Claim & { tokenPerSecond: string }) => {
-  const { createdAt, createdBy, totalAmountClaimed, totalSecondsWorked } =
-    props;
+export const ClaimCard = (
+  props: Claim & { tokenPerSecond: string; valueScalePercs: string[] }
+) => {
+  const {
+    createdAt,
+    createdBy,
+    totalAmountClaimed,
+    totalSecondsWorked,
+    valueScalePercs,
+  } = props;
   const { profile } = useMemberProfile({ address: createdBy });
+
   return (
     <BaseEventCard
       title={profile?.name || profile?.ens || truncateAddress(createdBy)}
@@ -37,6 +45,7 @@ export const ClaimCard = (props: Claim & { tokenPerSecond: string }) => {
             {formatValueTo({
               value: fromWei(totalAmountClaimed),
               unit: 'Shares',
+              format: 'short-number',
               decimals: 2,
             })}
           </Bold>{' '}
@@ -73,11 +82,14 @@ const ClaimsData = ({
   id,
   metadata,
   tokenPerSecond,
-}: Claim & { tokenPerSecond: string }) => {
+  valueScalePercs,
+}: Claim & { tokenPerSecond: string; valueScalePercs: string[] }) => {
   return (
     <ClaimsContainer>
       <ParLg className="bold mb-md">Sessions</ParLg>
       {sessionsTime.map((sessionTime, index) => {
+        const valuePerc = valueScalePercs[sessionsValue[index]];
+
         return (
           <div key={`${id}-${index}`}>
             <ParMd className="mb-sm bold">Session {index + 1}</ParMd>
@@ -95,8 +107,17 @@ const ClaimsData = ({
                 <ParMd>
                   {formatValueTo({
                     value: fromWei(
-                      (BigInt(sessionTime) * BigInt(tokenPerSecond)).toString()
+                      (
+                        BigInt(sessionTime) *
+                        BigInt(
+                          (
+                            (Number(tokenPerSecond) * Number(valuePerc)) /
+                            100
+                          ).toFixed()
+                        )
+                      ).toString()
                     ),
+                    format: 'short-number',
                     unit: 'Shares',
                     decimals: 2,
                   })}

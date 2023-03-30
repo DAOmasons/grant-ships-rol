@@ -51,6 +51,7 @@ export const Timeline = () => {
                 key={event.id}
                 {...event}
                 tokenPerSecond={shaman.tokenPerSecond}
+                valueScalePercs={shaman.valueScalePercs}
               />
             );
           }

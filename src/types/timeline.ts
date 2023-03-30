@@ -73,7 +73,7 @@ export type ProjectMetadata = {
   usdPerBaseShare?: number;
   rubricDescription?: [string, string, string, string, string];
   links?: ProjectLink[];
-  dueDate?: string;
+  dueDate?: number;
   parentDAOInfo?: {
     name?: string;
     address?: string;
