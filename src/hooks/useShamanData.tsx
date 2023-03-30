@@ -46,6 +46,8 @@ const fetchCheckInV2data = async (shamanAddress: string) => {
     const data = await graphQLClient.request(query, {
       shamanAddress,
     });
+    console.log('shamanAddress', shamanAddress);
+    console.log('data', data);
     const parsed = parseData(data?.shamans[0]);
     return parsed;
   } catch (error) {

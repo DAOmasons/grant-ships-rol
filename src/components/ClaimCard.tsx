@@ -20,9 +20,16 @@ import styled from 'styled-components';
 import { useMemberProfile } from '../hooks/useMemberProfile';
 import { MetadataWarning } from './MetadataWarning';
 
-export const ClaimCard = (claim: Claim) => {
-  const { createdAt, createdBy, totalAmountClaimed, totalSecondsWorked } =
-    claim;
+export const ClaimCard = (
+  props: Claim & { tokenPerSecond: string; valueScalePercs: string[] }
+) => {
+  const {
+    createdAt,
+    createdBy,
+    totalAmountClaimed,
+    totalSecondsWorked,
+    valueScalePercs,
+  } = props;
   const { profile } = useMemberProfile({ address: createdBy });
 
   return (
@@ -38,13 +45,14 @@ export const ClaimCard = (claim: Claim) => {
             {formatValueTo({
               value: fromWei(totalAmountClaimed),
               unit: 'Shares',
+              format: 'short-number',
               decimals: 2,
             })}
           </Bold>{' '}
           for <Bold>{formatPeriods(totalSecondsWorked)}</Bold>
         </ParMd>
       }
-      expandContent={<ClaimsData {...claim} />}
+      expandContent={<ClaimsData {...props} />}
     />
   );
 };
@@ -68,11 +76,20 @@ const ClaimsContainer = styled.div`
   }
 `;
 
-const ClaimsData = ({ sessionsTime, sessionsValue, id, metadata }: Claim) => {
+const ClaimsData = ({
+  sessionsTime,
+  sessionsValue,
+  id,
+  metadata,
+  tokenPerSecond,
+  valueScalePercs,
+}: Claim & { tokenPerSecond: string; valueScalePercs: string[] }) => {
   return (
     <ClaimsContainer>
       <ParLg className="bold mb-md">Sessions</ParLg>
       {sessionsTime.map((sessionTime, index) => {
+        const valuePerc = valueScalePercs[sessionsValue[index]];
+
         return (
           <div key={`${id}-${index}`}>
             <ParMd className="mb-sm bold">Session {index + 1}</ParMd>
@@ -82,12 +99,29 @@ const ClaimsData = ({ sessionsTime, sessionsValue, id, metadata }: Claim) => {
                 <ParMd>{formatPeriods(sessionTime)}</ParMd>
               </div>
               <div className="indicator">
-                <HiOutlineExclamationCircle size="1.6rem" />
+                <HiOutlineExclamationCircle size="1.8rem" />
                 <ParMd>{VALUE_LABELS[sessionsValue[index]]}</ParMd>
               </div>
               <div className="indicator">
-                <HiOutlineChartPie size="1.6rem" />
-                <ParMd>Shares</ParMd>
+                <HiOutlineChartPie size="1.8rem" />
+                <ParMd>
+                  {formatValueTo({
+                    value: fromWei(
+                      (
+                        BigInt(sessionTime) *
+                        BigInt(
+                          (
+                            (Number(tokenPerSecond) * Number(valuePerc)) /
+                            100
+                          ).toFixed()
+                        )
+                      ).toString()
+                    ),
+                    format: 'short-number',
+                    unit: 'Shares',
+                    decimals: 2,
+                  })}
+                </ParMd>
               </div>
             </div>
             <ParMd className="tint-secondary mb-lg">

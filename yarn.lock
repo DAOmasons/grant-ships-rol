@@ -1228,7 +1228,7 @@
     react-icons "4.7.1"
     styled-components "5.3.5"
 
-"@daohaus/keychain-utils@0.1.17":
+"@daohaus/keychain-utils@0.1.17", "@daohaus/keychain-utils@^0.1.17":
   version "0.1.17"
   resolved "https://registry.yarnpkg.com/@daohaus/keychain-utils/-/keychain-utils-0.1.17.tgz#f983dea8fb9b39c2bfb00da0b73b5177c4b8d9de"
   integrity sha512-SprCPsTZA6xgL+hlG5nKHOPobP++31wJoZj84I+AGxFF/TlZNPpb9N31ePUCJUBQXkImdH3+3PwN/Ejr2y8LXQ==

@@ -1,4 +1,3 @@
-import { FieldLego } from '@daohaus/form-builder';
 import { CustomField } from './config';
 
 export const FIELD: Record<string, CustomField> = {
@@ -6,21 +5,19 @@ export const FIELD: Record<string, CustomField> = {
     id: 'morale',
     type: 'input',
     label: 'Morale',
-    placeholder: 'How you feelin, champ?',
+    placeholder: 'How have you been since the last check in period?',
   },
   FUTURE: {
     id: 'future',
     type: 'input',
     label: 'Future Actions',
-    placeholder: 'Tomorrow, I will sever the head of Moloch',
-    info: 'What are you going to do next?',
+    placeholder: 'What are you going to do next?',
   },
   OBSTACLES: {
     id: 'obstacles',
     type: 'input',
     label: 'Obstacles',
-    placeholder: 'I am being held hostage by a cult',
-    info: 'What is getting in your way?',
+    placeholder: 'What obstacles got in your way?',
   },
   DESCRIPTION: {
     id: 'description',

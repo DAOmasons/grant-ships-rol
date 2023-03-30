@@ -8,6 +8,7 @@ import { Settings } from './pages/Settings';
 import { Timeline } from './pages/Timeline';
 import { TXBuilder } from '@daohaus/tx-builder';
 import { TARGET_DAO } from './constants';
+import { Project } from './pages/Project';
 
 export const Routes = () => {
   const { pathname } = useLocation();
@@ -17,10 +18,9 @@ export const Routes = () => {
       pathname={pathname}
       navLinks={[
         { label: 'Home', href: '/' },
+        { label: 'Project', href: '/project' },
         { label: 'Timeline', href: '/timeline' },
         { label: 'Claim', href: '/claim' },
-        { label: 'Leaderboard', href: '/leaderboard' },
-        { label: 'Settings', href: '/settings' },
       ]}
     >
       <TXBuilder
@@ -34,6 +34,7 @@ export const Routes = () => {
       >
         <Router>
           <Route path="/" element={<Home />} />
+          <Route path="/project" element={<Project />} />
           <Route path="/timeline" element={<Timeline />} />
           <Route path="/claim" element={<Claim />} />
           <Route path="/leaderboard" element={<Leaderboard />} />

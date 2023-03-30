@@ -1,30 +1,51 @@
-import { H2, Link, ParMd, SingleColumnLayout } from '@daohaus/ui';
+import { H2, Link, ParLg, ParMd, SingleColumnLayout } from '@daohaus/ui';
 import styled from 'styled-components';
 import { HausAnimated } from '../components/HausAnimated';
+import { TARGET_DAO } from '../constants';
+import { useShamanData } from '../hooks/useShamanData';
 
 const LinkBox = styled.div`
   display: flex;
-  width: 50%;
+  width: 100%;
   justify-content: space-between;
 `;
 
+const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .project-img {
+    max-width: 50rem;
+    max-height: 50rem;
+  }
+`;
+
 export const Home = () => {
+  const { name, description, links, imageUrl } = TARGET_DAO.PROJECT_DATA;
+
   return (
     <SingleColumnLayout>
-      <H2>DAOhaus is your haus</H2>
-      <HausAnimated />
-      <ParMd style={{ marginBottom: '2.4rem' }}>
-        Get started by editing src/pages/Home.tsx
-      </ParMd>
-      <LinkBox>
-        <Link href="https://github.com/HausDAO/monorepo" linkType="external">
-          Github
-        </Link>
-        <Link href="https://admin.daohaus.fun/" linkType="external">
-          Admin
-        </Link>
-        <Link href="/formtest">Example Form</Link>
-      </LinkBox>
+      <Layout>
+        <H2 className="mb-md project-img">{name}</H2>
+        <img src={imageUrl} className="mb-md project-img" />
+        <ParMd style={{ marginBottom: '2.4rem' }}>{description}</ParMd>
+
+        <LinkBox>
+          {links?.map((link) => (
+            <Link key={link.url} href={link.url} linkType="external">
+              {link.name}
+            </Link>
+          ))}
+          <Link href="/timeline">Project Activity</Link>
+          <Link href="/claim">Claim</Link>
+          <Link
+            linkType="external"
+            href={`https://admin.daohaus.fun/#/molochv3/${TARGET_DAO.CHAIN_ID}/${TARGET_DAO.ADDRESS}/members`}
+          >
+            Leaderboard
+          </Link>
+        </LinkBox>
+      </Layout>
     </SingleColumnLayout>
   );
 };
