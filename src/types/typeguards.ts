@@ -1,4 +1,4 @@
-import { isBoolean, isNumberish, isString } from '@daohaus/utils';
+import { isBoolean, isNumber, isNumberish, isString } from '@daohaus/utils';
 import { ShamanData } from './shaman';
 import {
   Claim,
@@ -45,7 +45,8 @@ export const isProjectMetadata = (
   return (
     isString(metadata.name) &&
     isString(metadata.description) &&
-    isString(metadata.imageUrl)
+    isString(metadata.imageUrl) &&
+    isString(metadata.rubricType)
   );
 };
 export const isUpdateLock = (event: any): event is UpdateLock => {

@@ -7,7 +7,7 @@ import { Claim } from './pages/Claim';
 import { Settings } from './pages/Settings';
 import { Timeline } from './pages/Timeline';
 import { TXBuilder } from '@daohaus/tx-builder';
-import { TARGET_DAO } from './constants';
+import { TARGET_DAO } from './targetDAO';
 import { Project } from './pages/Project';
 
 export const Routes = () => {

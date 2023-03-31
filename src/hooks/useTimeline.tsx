@@ -1,6 +1,6 @@
 import { GraphQLClient, gql } from 'graphql-request';
 import { useQuery } from 'react-query';
-import { SHAMAN_GRAPH_ENDPOINT } from '../constants';
+import { SHAMAN_GRAPH_ENDPOINT } from '../targetDAO';
 import { Claim, TimelineEvent } from '../types/timeline';
 import {
   isClaim,
