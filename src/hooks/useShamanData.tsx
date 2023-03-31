@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import { GraphQLClient, gql } from 'graphql-request';
-import { SHAMAN_GRAPH_ENDPOINT } from '../constants';
+import { SHAMAN_GRAPH_ENDPOINT } from '../targetDAO';
 import { isShaman } from '../types/typeguards';
 import { isJSON } from '@daohaus/utils';
 import { ProjectMetadata } from '../types/timeline';

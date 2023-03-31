@@ -1,7 +1,7 @@
 import { H2, Link, ParLg, ParMd, SingleColumnLayout } from '@daohaus/ui';
 import styled from 'styled-components';
 import { HausAnimated } from '../components/HausAnimated';
-import { TARGET_DAO } from '../constants';
+import { TARGET_DAO } from '../targetDAO';
 import { useShamanData } from '../hooks/useShamanData';
 
 const LinkBox = styled.div`

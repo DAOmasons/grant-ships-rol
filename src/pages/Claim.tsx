@@ -12,7 +12,7 @@ import {
 } from '@daohaus/ui';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
-import { TARGET_DAO } from '../constants';
+import { TARGET_DAO } from '../targetDAO';
 import { customFields } from '../legos/config';
 import { FORM } from '../legos/forms';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';

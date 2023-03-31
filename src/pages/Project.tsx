@@ -1,7 +1,7 @@
 import { BiColumnLayout, Card, H3, ParLg, ParMd, Tabs } from '@daohaus/ui';
 import React from 'react';
 import styled from 'styled-components';
-import { TARGET_DAO } from '../constants';
+import { TARGET_DAO } from '../targetDAO';
 
 const ProjectDataCard = styled(Card)`
   width: 100%;

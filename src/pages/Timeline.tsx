@@ -8,7 +8,7 @@ import {
 } from '@daohaus/ui';
 
 import { BaseEventCard } from '../components/BaseEventCard';
-import { TARGET_DAO } from '../constants';
+import { TARGET_DAO } from '../targetDAO';
 import { useTimeline } from '../hooks/useTimeline';
 import styled from 'styled-components';
 import { ClaimCard } from '../components/ClaimCard';
