@@ -81,9 +81,39 @@ const ArbitrumCampaign: TargetDAO = {
   },
 };
 
+const FinishDocs: TargetDAO = {
+  ADDRESS: '0xceb89a2d2876d0b624494725776355de07a8edf7',
+  CHAIN_ID: '0xa4b1',
+  CHAIN_NAME: 'Arbitrum One',
+  ROS_V2_SHAMAN: '0x171669682d75a8D421456802ad83063c0fa64ecF',
+  PROJECT_DATA: {
+    name: 'Finish the Docs!',
+    description: "last push to get the docs done for the DAO's website",
+    imageUrl:
+      'https://media.discordapp.net/attachments/1093964334369083432/1093994376545456168/DALLE_2023-04-07_13.22.32_-_mediabal_art_style_picture_of_3_saints_panicking_to_get_the_docs_done.png?width=532&height=532',
+    mission: 'Finally get the goddamn docs done!',
+    links: [
+      {
+        name: 'Project Proposal',
+        url: 'https://hackmd.io/0haYsy98RU6l5p9KXDpsWw',
+      },
+    ],
+    dueDate: 1682021911,
+    rubricType: 'time-only',
+    parentDAOInfo: {
+      name: 'DAO Masons',
+      address: '0x5b448757a34402deacc7729b79003408cdfe1438',
+      description: 'DAO Masons is a DAO that helps other DAOs',
+      imageUrl:
+        'https://cdn.discordapp.com/attachments/1087525376630198312/1088883720309710858/Bjav6ge.png',
+    },
+  },
+};
+
 const Projects: Record<string, TargetDAO> = {
   'Demo Project': DemoProject,
   'Arbitrum Campaign': ArbitrumCampaign,
+  'Finish Docs': FinishDocs,
 };
 
 const getTargetDAO = (targetProject?: string) => {
