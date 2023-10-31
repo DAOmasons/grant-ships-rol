@@ -9,7 +9,7 @@ type TargetDAO = {
   ADDRESS: EthAddress;
   CHAIN_ID: ValidNetwork;
   CHAIN_NAME: string;
-  ROS_V2_SHAMAN: EthAddress;
+  ROL_V2_SHAMAN: EthAddress;
   PROJECT_DATA: ProjectMetadata;
 };
 
@@ -17,7 +17,7 @@ const DemoProject: TargetDAO = {
   ADDRESS: '0x11f2d7f509ccace8a6cf835f30e3912ce579507b',
   CHAIN_ID: '0xa4b1',
   CHAIN_NAME: 'Arbitrum One',
-  ROS_V2_SHAMAN: '0xfa68fb88cf2c47a836c3a292bf5aad58103f65a9',
+  ROL_V2_SHAMAN: '0xfa68fb88cf2c47a836c3a292bf5aad58103f65a9',
   PROJECT_DATA: {
     name: 'Demo Project',
     description:
@@ -51,25 +51,29 @@ const DemoProject: TargetDAO = {
   },
 };
 
-const ArbitrumCampaign: TargetDAO = {
-  ADDRESS: '0x11f2d7f509ccace8a6cf835f30e3912ce579507b',
+const GrantShips: TargetDAO = {
+  ADDRESS: '0x88c958a3b04d7c9367dc4a1d3d3436dbbdc010c1',
   CHAIN_ID: '0xa4b1',
   CHAIN_NAME: 'Arbitrum One',
-  ROS_V2_SHAMAN: '0xfa68fb88cf2c47a836c3a292bf5aad58103f65a9',
+  ROL_V2_SHAMAN: '0x44e20dea3bafd3d483a4452d6eacfc62dd936815',
   PROJECT_DATA: {
-    name: 'Arbitrum Campaign',
-    description: 'DAO Masons hunting outreach program for DAOs on Arbitrum',
+    name: 'Build Grant Ships',
+    description: 'Project DAO for building Grant Ships on Arbitrum',
     imageUrl:
       'https://mma.prnewswire.com/media/1888305/Arbitrum_Logo.jpg?w=200',
     mission:
-      "This project aims to promote our DAO's services to other DAOs within the Arbitrum ecosystem, increase brand awareness, and establish partnerships.",
+      'This project aims to complete the Grant Ships project as specified in the Plurality Labs Proposal.',
     links: [
       {
-        name: 'Project Proposal',
+        name: 'Pluraly Labs Proposal',
+        url: 'https://hackmd.io/REwxi-dFQe29Z_-fvy7YNQ',
+      },
+      {
+        name: 'Grant Ships Proposal',
         url: 'https://hackmd.io/REwxi-dFQe29Z_-fvy7YNQ',
       },
     ],
-    dueDate: 1682713862,
+    dueDate: 1706745600,
     rubricType: 'time-only',
     parentDAOInfo: {
       name: 'DAO Masons',
@@ -81,39 +85,38 @@ const ArbitrumCampaign: TargetDAO = {
   },
 };
 
-const FinishDocs: TargetDAO = {
-  ADDRESS: '0xceb89a2d2876d0b624494725776355de07a8edf7',
-  CHAIN_ID: '0xa4b1',
-  CHAIN_NAME: 'Arbitrum One',
-  ROS_V2_SHAMAN: '0x171669682d75a8D421456802ad83063c0fa64ecF',
-  PROJECT_DATA: {
-    name: 'Finish the Docs!',
-    description: "last push to get the docs done for the DAO's website",
-    imageUrl:
-      'https://media.discordapp.net/attachments/1093964334369083432/1093994376545456168/DALLE_2023-04-07_13.22.32_-_mediabal_art_style_picture_of_3_saints_panicking_to_get_the_docs_done.png?width=532&height=532',
-    mission: 'Finally get the goddamn docs done!',
-    links: [
-      {
-        name: 'Project Proposal',
-        url: 'https://hackmd.io/0haYsy98RU6l5p9KXDpsWw',
-      },
-    ],
-    dueDate: 1682021911,
-    rubricType: 'time-only',
-    parentDAOInfo: {
-      name: 'DAO Masons',
-      address: '0x5b448757a34402deacc7729b79003408cdfe1438',
-      description: 'DAO Masons is a DAO that helps other DAOs',
-      imageUrl:
-        'https://cdn.discordapp.com/attachments/1087525376630198312/1088883720309710858/Bjav6ge.png',
-    },
-  },
-};
+// const FinishDocs: TargetDAO = {
+//   ADDRESS: '0xceb89a2d2876d0b624494725776355de07a8edf7',
+//   CHAIN_ID: '0xa4b1',
+//   CHAIN_NAME: 'Arbitrum One',
+//   ROL_V2_SHAMAN: '0x171669682d75a8D421456802ad83063c0fa64ecF',
+//   PROJECT_DATA: {
+//     name: 'Finish the Docs!',
+//     description: "last push to get the docs done for the DAO's website",
+//     imageUrl:
+//       'https://media.discordapp.net/attachments/1093964334369083432/1093994376545456168/DALLE_2023-04-07_13.22.32_-_mediabal_art_style_picture_of_3_saints_panicking_to_get_the_docs_done.png?width=532&height=532',
+//     mission: 'Finally get the goddamn docs done!',
+//     links: [
+//       {
+//         name: 'Project Proposal',
+//         url: 'https://hackmd.io/0haYsy98RU6l5p9KXDpsWw',
+//       },
+//     ],
+//     dueDate: 1682021911,
+//     rubricType: 'time-only',
+//     parentDAOInfo: {
+//       name: 'DAO Masons',
+//       address: '0x5b448757a34402deacc7729b79003408cdfe1438',
+//       description: 'DAO Masons is a DAO that helps other DAOs',
+//       imageUrl:
+//         'https://cdn.discordapp.com/attachments/1087525376630198312/1088883720309710858/Bjav6ge.png',
+//     },
+//   },
+// };
 
 const Projects: Record<string, TargetDAO> = {
   'Demo Project': DemoProject,
-  'Arbitrum Campaign': ArbitrumCampaign,
-  'Finish Docs': FinishDocs,
+  GrantShips,
 };
 
 const getTargetDAO = (targetProject?: string) => {

@@ -34,7 +34,7 @@ const findUserMember = async ({
       url,
       chainId,
       {
-        id: `${daoId}-member-${memberAddress.toLowerCase()}`,
+        id: `${daoId.toLowerCase()}-member-${memberAddress.toLowerCase()}`,
       }
     );
 

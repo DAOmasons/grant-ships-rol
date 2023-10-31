@@ -32,10 +32,10 @@ const TimelineLayout = styled.div`
 
 export const Timeline = () => {
   const { timeline, isLoading: isLoadingTimeline } = useTimeline({
-    shamanAddress: TARGET_DAO.ROS_V2_SHAMAN,
+    shamanAddress: TARGET_DAO.ROL_V2_SHAMAN,
   });
   const { shaman, isLoading: isLoadingShaman } = useShamanData({
-    shamanAddress: TARGET_DAO.ROS_V2_SHAMAN,
+    shamanAddress: TARGET_DAO.ROL_V2_SHAMAN,
   });
   if (isLoadingTimeline || isLoadingShaman) return <Spinner size="12rem" />;
   if (!timeline) return <ParLg>Timeline not found</ParLg>;

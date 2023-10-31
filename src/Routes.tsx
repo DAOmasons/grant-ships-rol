@@ -29,7 +29,7 @@ export const Routes = () => {
         daoId={TARGET_DAO.ADDRESS}
         // safeId={TARGET_DAO.SAFE_ADDRESS}
         appState={{
-          shamanAddress: TARGET_DAO.ROS_V2_SHAMAN,
+          shamanAddress: TARGET_DAO.ROL_V2_SHAMAN,
         }}
       >
         <Router>

@@ -30,8 +30,10 @@ export const Claim = () => {
     memberAddress: address,
   });
 
+  console.log('isMember', isMember);
+
   const { shaman, isLoading: isShamanLoading } = useShamanData({
-    shamanAddress: TARGET_DAO.ROS_V2_SHAMAN,
+    shamanAddress: TARGET_DAO.ROL_V2_SHAMAN,
   });
 
   const isLoadingAny = isMemberLoading || isShamanLoading;
