@@ -71,7 +71,7 @@ const fetchDAOTimeline = async (shamanAddress: string) => {
   const query = gql`
     query getTimeline($shamanAddress: String!) {
         timelineEvents(
-        first: 20,
+        # first: 100,
         where: { shamanAddress: "${shamanAddress}" },
         orderBy: createdAt,
         orderDirection: desc
